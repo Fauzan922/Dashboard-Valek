@@ -74,12 +74,10 @@ export default function App() {
 
       <footer className="site-footer">
         <span>
-          Alat eksplorasi benefit transfer · harga 2025 · bukan penilaian tapak atau
-          penetapan kawasan.
+          Penilaian Valuasi Ekonomi Dengan Benefit Transfer Pada Tahun 2025
         </span>
         <span>
-          Sumber workbook: Perhitungan Valuasi Ekonomi Lingkungan Hidup.xlsx. Batas provinsi
-          CC BY 4.0; bukan peta resmi BIG.
+          Instrumen Ekonomi Lingkungan Hidup
         </span>
       </footer>
 

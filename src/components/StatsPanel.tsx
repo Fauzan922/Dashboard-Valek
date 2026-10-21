@@ -146,7 +146,7 @@ export function StatsPanel({
     <section className="stats-panel" aria-labelledby="stats-title">
       <div className="panel-heading">
         <div>
-          <div className="eyebrow">Statistik spasial</div>
+          <div className="eyebrow">Statistik</div>
           <h2 id="stats-title">{displayName}</h2>
         </div>
         <span className="scope-badge">{selectedLocation ? 'Provinsi' : '38 provinsi'}</span>
@@ -154,12 +154,12 @@ export function StatsPanel({
       <p className="panel-sub">
         {selectedLocation
           ? `${selectedLocation.name} · UMP 2025 ${formatUmp(selectedLocation.ump)}`
-          : 'Ringkasan referensi seluruh provinsi · pilih provinsi pada peta untuk membuka rincian'}
+          : 'Gambaran umum dari seluruh provinsi, pilih provinsi pada peta untuk mendapatkan data yang lebih rinci.'}
       </p>
 
       <div className="stat-section">
         <div className="section-kicker">
-          <span>Koefisien referensi</span>
+          <span>Koefisien</span>
           <span className="kicker-detail">{ecosystem}</span>
         </div>
 
@@ -167,26 +167,26 @@ export function StatsPanel({
           <>
             <div className="stat-grid">
               <Stat
-                label="Total per hektare"
+                label="Total per hektar"
                 value={formatRupiahPerHa(coefficients.total)}
                 note={
                   coefficients.partial
                     ? 'Jumlah kategori tersedia · total parsial'
-                    : 'Rp/ha/tahun · harga 2025'
+                    : 'Rp/ha/tahun · 2025'
                 }
                 title={coefficients.total !== null ? formatRupiah(coefficients.total) : undefined}
               />
               <Stat
-                label="Jasa tertinggi"
+                label="Jasa ekosistem tertinggi"
                 value={topService ? categoryLabel(topService.category) : 'Tidak tersedia'}
                 note={
                   topService
-                    ? `${formatRupiahPerHa(topService.value)} · median kategori`
+                    ? `${formatRupiahPerHa(topService.value)} · Nilai Median`
                     : 'Tidak ada kategori bernilai'
                 }
               />
               <Stat
-                label="Ekosistem tertinggi"
+                label="Ekosistem dominan"
                 value={highest?.ecosystem ?? 'Tidak tersedia'}
                 note={
                   highest
@@ -195,7 +195,7 @@ export function StatsPanel({
                 }
               />
               <Stat
-                label="Studi sumber"
+                label="sumber pustaka"
                 value={`${formatNumber(studyCount)} studi`}
                 note={`${formatNumber(recordSummary.recordCount)} catatan di provinsi ini`}
               />
@@ -236,7 +236,7 @@ export function StatsPanel({
           <>
             <div className="stat-grid">
               <Stat
-                label="Rentang antarpovinsi"
+                label="Rentang antar povinsi"
                 value={
                   national.min && national.max
                     ? `${formatRupiahPerHa(national.min.value)} – ${formatRupiahPerHa(
@@ -244,7 +244,7 @@ export function StatsPanel({
                       )}`
                     : 'Tidak tersedia'
                 }
-                note="Batas bawah – batas atas dari 38 provinsi"
+                note="Antara Nilai Tertinggi dan Terendah"
               />
               <Stat
                 label="Provinsi tertinggi"
@@ -263,9 +263,9 @@ export function StatsPanel({
               />
             </div>
             <p className="mini-note">
-              Median antarpovinsi{' '}
+              Nilai median antarpovinsi{' '}
               <strong>{formatRupiahPerHa(national.medianValue)}</strong>. Statistik ini
-              deskriptif dan dihitung dari 38 provinsi; bukan angka nasional resmi.
+              deskriptif dan dihitung dari 38 provinsi berdasarkan benefit transfer.
             </p>
           </>
         )}
@@ -275,7 +275,7 @@ export function StatsPanel({
 
       <div className="stat-section">
         <div className="section-kicker">
-          <span>Catatan spasial</span>
+          <span>Catatan Valuasi</span>
           <span className="kicker-detail">
             {formatNumber(recordSummary.recordCount)} catatan
           </span>
@@ -283,10 +283,10 @@ export function StatsPanel({
 
         {recordSummary.recordCount === 0 ? (
           <div className="empty-state">
-            <strong>Belum ada catatan spasial.</strong>
+            <strong>Belum ada catatan.</strong>
             <p>
-              Workbook tidak memuat luas ekosistem provinsi. Nilai total hanya muncul setelah
-              pengguna menambahkan luas yang diverifikasi melalui kalkulator.
+              Sumber data tidak memiliki data luas ekosistem. Nilai total hanya akan muncul setelah
+              pengguna menambahkan luas yang diisi melalui kalkulator.
             </p>
             <button type="button" className="inline-button" onClick={onFocusCalculator}>
               Buka kalkulator
@@ -396,7 +396,7 @@ export function StatsPanel({
         Koefisien: {formatNumber(meta.studyCount)} studi,{' '}
         {formatNumber(meta.componentCount)} komponen, median kategori non-nol, UMP{' '}
         {meta.priceYear}. Nilai total provinsi memerlukan luas ekosistem yang tidak tersedia
-        di workbook.
+        pada basis data.
         {selectedLocation
           ? ''
           : ` ${formatNumber(coveredProvinces)} provinsi memiliki catatan pengguna.`}

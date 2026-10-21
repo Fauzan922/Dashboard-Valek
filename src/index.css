@@ -51,6 +51,7 @@
 html,
 body,
 #root {
+  width: 100%;
   min-height: 100%;
 }
 
@@ -59,6 +60,7 @@ body {
   background: var(--paper);
   font-size: 14px;
   line-height: 1.45;
+  min-height: 100vh;
 }
 
 button,
@@ -1205,6 +1207,7 @@ a {
   background: var(--paper-raised);
   color: var(--ink);
   border-radius: 2px;
+  overflow: hidden;
 }
 
 .method-dialog::backdrop {
@@ -1297,25 +1300,57 @@ a {
 
 /* Responsive -------------------------------------------------------------- */
 
-@media (min-width: 1081px) {
-  .app-shell {
-    height: 100vh;
-    overflow: hidden;
-  }
 
-  .workspace {
-    flex: 1;
+@media (min-width: 1081px) {
+  html,
+  body,
+  #root {
+    height: 100%;
     min-height: 0;
   }
 
+  body {
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .app-shell {
+    height: 100vh;
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .workspace {
+    flex: 1 1 0;
+    min-height: 0;
+    overflow: hidden;
+    grid-template-columns: minmax(0, 1fr) minmax(360px, 420px);
+  }
+
   .map-panel {
+    min-height: 0;
     overflow: hidden;
   }
 
   .rail {
+    min-height: 0;
+    height: 100%;
     overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior-y: contain;
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-strong) transparent;
+  }
+
+  .site-footer {
+    flex: 0 0 auto;
+    margin-top: 0;
   }
 }
+
 
 @media (max-width: 1180px) {
   .workspace {

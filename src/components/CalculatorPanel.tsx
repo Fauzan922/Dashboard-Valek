@@ -156,8 +156,8 @@ export function CalculatorPanel({
     onAddRecord(record);
     setAddedMessage(
       canAddValue
-        ? `Catatan ditambahkan${coefficients?.partial ? ' dengan nilai parsial' : ''}. Peta beralih ke nilai total.`
-        : 'Luas ditambahkan tanpa nilai. Peta beralih ke luas tercatat.',
+        ? `Catatan ditambahkan${coefficients?.partial ? ' dengan nilai parsial' : ''}, peta beralih ke nilai total.`
+        : 'Luas ditambahkan tanpa nilai, peta beralih ke luas tercatat.',
     );
     setLabel('');
   }
@@ -166,13 +166,13 @@ export function CalculatorPanel({
     <section className="calculator-panel" aria-labelledby="calculator-title">
       <div className="panel-heading">
         <div>
-          <div className="eyebrow">Kalkulator valuasi</div>
+          <div className="eyebrow">Kalkulator Valuasi Ekonomi</div>
           <h2 id="calculator-title">Estimasi nilai jasa ekosistem</h2>
         </div>
         <span className="scope-badge">2025</span>
       </div>
       <p className="panel-sub">
-        Benefit transfer per hektare · hasil tahunan · bukan penilaian tapak.
+        Benefit transfer per hektar · 2025
       </p>
 
       <div className="calculator-form">
@@ -246,7 +246,7 @@ export function CalculatorPanel({
               </option>
             ))}
           </select>
-          <small>Untuk tabel identifikasi; tidak mengubah koefisien D16.</small>
+          <small>Identifikasi wilayah</small>
         </label>
 
         <label className="field">
@@ -264,7 +264,7 @@ export function CalculatorPanel({
               </option>
             ))}
           </select>
-          <small>Ditentukan pengguna, bukan dari nama lokasi.</small>
+          <small>Isi dengan Status Kawasan</small>
         </label>
 
         <label className="field">
@@ -315,7 +315,7 @@ export function CalculatorPanel({
           <small>
             {areaHa !== null
               ? `${formatNumber(parsedArea ?? 0, 2)} ${unitSymbol} = ${formatArea(areaHa)}`
-              : 'Masukkan luas aktual; tidak ada nilai default.'}
+              : 'Masukkan nilai luas.'}
           </small>
           {areaError && (
             <span className="field-error" id="area-error" role="alert">
@@ -325,7 +325,7 @@ export function CalculatorPanel({
         </div>
 
         <label className="field field-wide">
-          <span>Label catatan (opsional)</span>
+          <span>Catatan Data (opsional)</span>
           <input
             type="text"
             value={label}
@@ -383,25 +383,25 @@ export function CalculatorPanel({
           <strong>
             {calculatedValue !== null
               ? `${formatRupiah(calculatedValue)}/tahun`
-              : 'Tidak dihitung'}
+              : '-'}
           </strong>
         </div>
 
         {status !== 'KL' && (
           <p className="calc-reason">
             {status === 'NON_KL'
-              ? 'Workbook tidak menyediakan koefisien non-kawasan lindung. Nilai tidak diisi nol.'
+              ? 'Kalkulator saat ini belum dapat mengkalkukasi koefisien non-kawasan lindung.'
               : 'Status kawasan belum diketahui. Pilih status berdasarkan data kawasan yang berwenang; nilai tidak dihitung.'}
           </p>
         )}
         {status === 'KL' && selectedCoefficient === null && (
           <p className="calc-reason">
-            Koefisien kategori ini tidak tersedia pada workbook. Tidak ada substitusi nol.
+            Koefisien kategori ini tidak tersedia pada database. Tidak ada substitusi nol.
           </p>
         )}
         {status === 'KL' && missingCategory && (
           <p className="calc-reason">
-            Kategori {SERVICE_LABELS[service]} tidak memiliki median pada workbook.
+            Kategori {SERVICE_LABELS[service]} tidak memiliki median pada database.
           </p>
         )}
         {service === 'Total' && coefficients?.partial && (
@@ -438,7 +438,7 @@ export function CalculatorPanel({
 
         <p className="calc-source">
           Koefisien = median total kategori per studi × (UMP 2025 lokasi / UMP 2025 studi).
-          Nilai dasar sudah disesuaikan ke 2025 dan tidak diinflasi ulang.
+          Nilai dasar sudah disesuaikan ke 2025 dan tidak memperhitungkan inflasi.
         </p>
       </div>
 
@@ -482,7 +482,7 @@ export function CalculatorPanel({
       )}
       {canAddValue && service !== 'Total' && (
         <p className="inline-note">
-          Catatan peta menyimpan total ekosistem, bukan hanya kategori jasa yang dipilih.
+          Catatan menyimpan total ekosistem, bukan hanya kategori jasa yang dipilih.
         </p>
       )}
       {addedMessage && (

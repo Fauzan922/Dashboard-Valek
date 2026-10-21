@@ -77,10 +77,10 @@ const MODE_LABELS: Record<MapMode, string> = {
 };
 
 const MODE_TITLES: Record<MapMode, string> = {
-  coefficient: 'Koefisien jasa ekosistem per hektare',
+  coefficient: 'Koefisien jasa ekosistem per hektar',
   value: 'Nilai total tervaluasi',
   area: 'Luas ekosistem tercatat',
-  status: 'Pangsa kawasan lindung',
+  status: 'Sebaran kawasan lindung',
   ecosystem: 'Ekosistem dominan',
 };
 
@@ -342,7 +342,7 @@ export function MapPanel({
 
   const emptyTitle =
     records.length === 0
-      ? 'Belum ada catatan spasial.'
+      ? 'Belum ada catatan nilai ekonomi.'
       : mapMode === 'value'
         ? 'Belum ada nilai tervaluasi.'
         : mapMode === 'status'
@@ -350,7 +350,7 @@ export function MapPanel({
           : 'Belum ada data pada mode ini.';
   const emptyBody =
     records.length === 0
-      ? 'Hasil kalkulator dapat ditambahkan ke peta. Tanpa luas yang diverifikasi, nilai provinsi tidak diisi.'
+      ? 'Hasil kalkulator perhitungan dapat ditambahkan ke peta.'
       : mapMode === 'value'
         ? 'Catatan tersedia, tetapi belum ada nilai. Hanya catatan kawasan lindung (KL) yang dapat dinilai; non-KL dan status belum diketahui tidak diisi.'
         : mapMode === 'status'
@@ -500,12 +500,12 @@ export function MapPanel({
     <section className="map-panel" aria-labelledby="map-title">
       <div className="map-toolbar">
         <div className="map-heading">
-          <div className="eyebrow">Peta provinsi · 38 batas</div>
+          <div className="eyebrow">Peta Sebaran</div>
           <h2 id="map-title">{MODE_TITLES[mapMode]}</h2>
           <p>
             {mapMode === 'coefficient'
               ? `Ekosistem ${ecosystem} · Rp/ha/tahun · tingkat harga 2025`
-              : 'Agregasi catatan pengguna · seluruh ekosistem · bukan data provinsi dari workbook'}
+              : 'Nilai akumulasi dari catatan pengguna dan seluruh ekosistem'}
           </p>
         </div>
         <div className="map-controls">
@@ -515,7 +515,7 @@ export function MapPanel({
               value={selectedProvinceId ?? ''}
               onChange={(event) => handleProvinceSelect(event.target.value)}
             >
-              <option value="">Nasional — 38 provinsi</option>
+              <option value="">Nasional</option>
               {mapProvinces.map((province) => (
                 <option key={province.location.id} value={province.location.id}>
                   {province.displayName}
@@ -524,7 +524,7 @@ export function MapPanel({
             </select>
           </label>
           <label className="compact-field">
-            <span>Ekosistem acuan</span>
+            <span>Ekosistem</span>
             <select
               value={ecosystem}
               onChange={(event) => onEcosystemChange(event.target.value)}
@@ -540,7 +540,7 @@ export function MapPanel({
             onReset();
             resetView();
           }}>
-            Nasional
+            Lihat Nasional
           </button>
         </div>
       </div>
@@ -728,10 +728,10 @@ export function MapPanel({
               ? `Koefisien per hektare dihitung dari ${formatNumber(
                   meta.studyCount,
                 )} studi benefit transfer; perbedaan antarpovinsi berasal dari UMP 2025.`
-              : 'Nilai/luas provinsi hanya berasal dari catatan yang ditambahkan pengguna. Workbook tidak memuat luas ekosistem provinsi.'}
+              : 'Nilai/luas provinsi hanya berasal dari catatan yang ditambahkan pengguna. Tidak berasal dari data provinsi yang resmi dikeluarkan oleh pemerintah.'}
           </span>
           <span>
-            Batas: {BOUNDARY_SOURCE.name} · {BOUNDARY_SOURCE.license}. Bukan peta resmi BIG.
+            Batas: {BOUNDARY_SOURCE.name} · {BOUNDARY_SOURCE.license}
           </span>
         </div>
       </div>
